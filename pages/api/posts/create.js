@@ -11,23 +11,28 @@ export default async function handler(req, res) {
 
     const { title, content } = req.body;
 
-    // Basic validation
     if (!title || !content) {
         return res.status(400).json({ success: false, message: 'Title and Content are required' });
     }
 
     try {
-        // Generate SEO-friendly slug
         const slug = slugify(title, { lower: true, strict: true });
 
-        // Create new post document
+        // 🔒 Check for existing post with same slug
+        const existingPost = await Post.findOne({ slug });
+        if (existingPost) {
+            return res.status(400).json({
+                success: false,
+                message: 'A post with this title already exists. Please choose a different title.'
+            });
+        }
+
         const newPost = new Post({
             title,
             content,
             slug,
         });
 
-        // Save to database
         await newPost.save();
 
         return res.status(201).json({ success: true, post: newPost });
