@@ -53,7 +53,7 @@ export default function CreatePost() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-[#FAF3E0] font-serif">
+        <div className="min-h-screen flex flex-col bg-[#FAF3E0]">
             <Header />
 
             <main className="flex-grow max-w-3xl mx-auto py-10 px-6">

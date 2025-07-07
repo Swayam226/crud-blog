@@ -17,7 +17,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF3E0] font-serif text-[#333333]">
+    <div className="min-h-screen flex flex-col bg-[#FAF3E0] text-[#333333]">
       <Head>
         <title>Blog Haven</title>
         <meta name="description" content="Timeless stories and reflections in a minimalist vintage style." />
@@ -34,7 +34,7 @@ export default function Home() {
         {posts.length === 0 ? (
           <p className="text-[#5F5F5F] italic">No posts yet. Check back soon.</p>
         ) : (
-          <div className="space-y-8 text-left">
+          <div className="space-y-8 text-left font-inter">
             {posts.map((post) => (
               <div key={post._id}>
                 <Link href={`/blog/${post.slug}`} className="text-2xl font-bold hover:underline text-[#333333]">

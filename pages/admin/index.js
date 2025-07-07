@@ -39,7 +39,7 @@ export default function AdminDashboard() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-[#FAF3E0] font-serif">
+        <div className="min-h-screen flex flex-col bg-[#FAF3E0]">
             <Header />
 
             <main className="flex-grow max-w-4xl mx-auto py-10 px-6">
@@ -51,13 +51,13 @@ export default function AdminDashboard() {
                     </div>
                 )}
 
-                <div className="text-center mb-10">
+                <div className="text-center mb-10 font-inter">
                     <Link href="/admin/create" className="bg-[#7B3F00] text-white py-2 px-6 rounded border border-[#7B3F00] hover:bg-[#5c2e00] transition">
                         ➕ Create New Post
                     </Link>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-4 font-inter">
                     {posts.length === 0 ? (
                         <p className="text-gray-600 text-center italic">No posts yet.</p>
                     ) : (
@@ -68,15 +68,15 @@ export default function AdminDashboard() {
 
                                     <div className="flex gap-4 items-center">
                                         <Link href={`/admin/edit/${post.slug}`}>
-                                            <Pencil className="text-blue-600 hover:text-blue-800 cursor-pointer" />
+                                            <Pencil className="text-blue-600 hover:text-blue-800 cursor-pointer size-5 ml-4" />
                                         </Link>
 
                                         <button onClick={() => handleDelete(post.slug)}>
-                                            <Trash2 className="text-black hover:text-red-700 cursor-pointer" />
+                                            <Trash2 className="text-black hover:text-red-700 cursor-pointer size-5" />
                                         </button>
 
                                         <Link href={`/blog/${post.slug}`}>
-                                            <Eye className="text-green-700 hover:text-green-900 cursor-pointer" />
+                                            <Eye className="text-green-700 hover:text-green-900 cursor-pointer size-5" />
                                         </Link>
                                     </div>
                                 </div>

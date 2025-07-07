@@ -35,7 +35,7 @@ export default function BlogPost() {
     }, [slug]);
 
     return (
-        <div className="min-h-screen flex flex-col bg-[#FAF3E0] font-serif text-[#333333]">
+        <div className="min-h-screen flex flex-col bg-[#FAF3E0] text-[#333333]">
             <Header />
 
             <main className="flex-grow max-w-3xl mx-auto py-10 px-6">
@@ -56,7 +56,7 @@ export default function BlogPost() {
                         </p>
 
                         <div
-                            className="prose prose-lg max-w-none"
+                            className="post-content"
                             dangerouslySetInnerHTML={{ __html: post.content }}
                         />
                     </>

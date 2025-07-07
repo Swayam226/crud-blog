@@ -3,9 +3,30 @@
 @tailwind components;
 @tailwind utilities; */
 
-html {
+body {
   background-color: #FAF3E0;
   color: #333333;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Merriweather', serif;
 }
+
+.font-inter{
+  font-family: 'Inter', sans-serif;
+}
+
+.post-content ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.post-content ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.post-content li {
+  margin-bottom: 0.5rem;
+}
+
 
