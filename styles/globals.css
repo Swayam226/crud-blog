@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities; */
 
-body {
+html {
   background-color: #FAF3E0;
   color: #333333;
   font-family: 'Playfair Display', serif;

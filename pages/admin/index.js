@@ -18,9 +18,6 @@ export default function AdminDashboard() {
     }, []);
 
     const handleDelete = async (slug) => {
-        const confirmDelete = window.confirm('Do you really want to delete this post?');
-        if (!confirmDelete) return;
-
         setMessage('Deleting post...');
 
         const res = await fetch(`/api/posts/${slug}`, {
@@ -33,7 +30,7 @@ export default function AdminDashboard() {
         const data = await res.json();
         if (data.success) {
             setPosts(posts.filter((post) => post.slug !== slug));
-            setMessage('✅ Post deleted successfully!');
+            setMessage('Post deleted successfully!');
             setTimeout(() => setMessage(''), 2000);
         } else {
             setMessage(data.message || 'Failed to delete post.');
@@ -46,7 +43,7 @@ export default function AdminDashboard() {
             <Header />
 
             <main className="flex-grow max-w-4xl mx-auto py-10 px-6">
-                <h1 className="text-4xl font-bold text-center mb-8 text-[#333333]">My Dashboard 🛠️</h1>
+                <h1 className="text-4xl font-bold text-center mb-8 text-[#333333]">My Dashboard</h1>
 
                 {message && (
                     <div className="mb-6 p-3 rounded border border-[#E0D7C6] bg-white text-center text-[#5F5F5F]">
@@ -66,31 +63,25 @@ export default function AdminDashboard() {
                     ) : (
                         posts.map((post) => (
                             <div key={post._id} className="border border-[#E0D7C6] bg-white p-4 rounded shadow-sm">
-                                <h2 className="text-xl font-bold text-[#333333]">{post.title}</h2>
-                                <p className="text-sm text-[#5F5F5F] mb-3">{new Date(post.createdAt).toLocaleDateString()}</p>
+                                <div className="flex items-center justify-between">
+                                    <h2 className="text-xl font-bold text-[#333333]">{post.title}</h2>
 
-                                <div className="flex gap-6 items-center">
-                                    <Link href={`/admin/edit/${post.slug}`} className="group relative">
-                                        <Pencil className="text-[#7B3F00] hover:text-[#5c2e00]" />
-                                        <span className="absolute left-1/2 transform -translate-x-1/2 mt-1 text-xs opacity-0 group-hover:opacity-100 text-[#5F5F5F]">
-                                            Edit
-                                        </span>
-                                    </Link>
+                                    <div className="flex gap-4 items-center">
+                                        <Link href={`/admin/edit/${post.slug}`}>
+                                            <Pencil className="text-blue-600 hover:text-blue-800 cursor-pointer" />
+                                        </Link>
 
-                                    <button onClick={() => handleDelete(post.slug)} className="group relative">
-                                        <Trash2 className="text-red-600 hover:text-red-800" />
-                                        <span className="absolute left-1/2 transform -translate-x-1/2 mt-1 text-xs opacity-0 group-hover:opacity-100 text-[#5F5F5F]">
-                                            Delete
-                                        </span>
-                                    </button>
+                                        <button onClick={() => handleDelete(post.slug)}>
+                                            <Trash2 className="text-black hover:text-red-700 cursor-pointer" />
+                                        </button>
 
-                                    <Link href={`/blog/${post.slug}`} className="group relative">
-                                        <Eye className="text-[#7B3F00] hover:text-[#5c2e00]" />
-                                        <span className="absolute left-1/2 transform -translate-x-1/2 mt-1 text-xs opacity-0 group-hover:opacity-100 text-[#5F5F5F]">
-                                            View
-                                        </span>
-                                    </Link>
+                                        <Link href={`/blog/${post.slug}`}>
+                                            <Eye className="text-green-700 hover:text-green-900 cursor-pointer" />
+                                        </Link>
+                                    </div>
                                 </div>
+
+                                <p className="text-sm text-[#5F5F5F] mt-2">{new Date(post.createdAt).toLocaleDateString()}</p>
                             </div>
                         ))
                     )}

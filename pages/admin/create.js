@@ -39,7 +39,7 @@ export default function CreatePost() {
             const data = await res.json();
 
             if (data.success) {
-                setMessage('✅ Post published successfully!');
+                setMessage('Post published successfully!');
                 setTimeout(() => router.push('/admin'), 1500);
             } else {
                 setMessage(data.message || 'Failed to create post.');
@@ -57,7 +57,7 @@ export default function CreatePost() {
             <Header />
 
             <main className="flex-grow max-w-3xl mx-auto py-10 px-6">
-                <h1 className="text-3xl font-bold mb-6 text-[#333333] text-center">Create New Post ✍️</h1>
+                <h1 className="text-3xl font-bold mb-6 text-[#333333] text-center">Create New Post</h1>
 
                 {message && (
                     <div className="mb-4 p-3 rounded border border-[#E0D7C6] bg-white text-center text-[#5F5F5F]">
