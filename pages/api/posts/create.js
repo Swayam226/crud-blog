@@ -1,6 +1,7 @@
 import dbConnect from '@/lib/dbConnect';
 import Post from '@/models/Post';
 import slugify from 'slugify';
+import sanitizeHtml from 'sanitize-html';
 
 export default async function handler(req, res) {
     await dbConnect();
@@ -27,9 +28,18 @@ export default async function handler(req, res) {
             });
         }
 
+        // Sanitizing the rich text content
+        const cleanContent = sanitizeHtml(content, {
+            allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
+            allowedAttributes: {
+                ...sanitizeHtml.defaults.allowedAttributes,
+                img: ['src', 'alt', 'width', 'height'],
+            },
+        });
+
         const newPost = new Post({
             title,
-            content,
+            content: cleanContent,
             slug,
         });
 
