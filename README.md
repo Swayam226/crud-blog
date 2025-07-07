@@ -1,4 +1,4 @@
-# 📖 Blog Haven
+# Blog Haven
 
 A minimalist, vintage-inspired blogging platform built using **Next.js**, **MongoDB Atlas**, and **Tailwind CSS v4**. Designed for timeless storytelling, seamless user experience, and optimized for modern SEO best practices.
 
