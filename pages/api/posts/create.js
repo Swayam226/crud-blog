@@ -6,6 +6,13 @@ import sanitizeHtml from 'sanitize-html';
 export default async function handler(req, res) {
     await dbConnect();
 
+    const token = req.headers['authorization'];
+
+    if (!token || token !== `Bearer ${process.env.ADMIN_SECRET}`) {
+        return res.status(401).json({ success: false, message: 'Unauthorized' });
+    }
+
+
     if (req.method !== 'POST') {
         return res.status(405).json({ success: false, message: 'Method Not Allowed' });
     }

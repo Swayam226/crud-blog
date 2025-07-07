@@ -21,6 +21,11 @@ export default async function handler(req, res) {
     }
 
     else if (req.method === 'PUT') {
+        const token = req.headers['authorization'];
+        if (!token || token !== `Bearer ${process.env.ADMIN_SECRET}`) {
+            return res.status(401).json({ success: false, message: 'Unauthorized' });
+        }
+
         const { title, content } = req.body;
 
         if (!title || !content) {
@@ -40,7 +45,7 @@ export default async function handler(req, res) {
 
             const updatedPost = await Post.findOneAndUpdate(
                 { slug },
-                { title, content, slug: newSlug },
+                { title, content: cleanContent, slug: newSlug },
                 { new: true }
             );
 
@@ -56,6 +61,11 @@ export default async function handler(req, res) {
     }
 
     else if (req.method === 'DELETE') {
+        const token = req.headers['authorization'];
+        if (!token || token !== `Bearer ${process.env.ADMIN_SECRET}`) {
+            return res.status(401).json({ success: false, message: 'Unauthorized' });
+        }
+
         try {
             const deletedPost = await Post.findOneAndDelete({ slug });
 

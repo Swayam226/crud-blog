@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Pencil, Trash2, Eye } from 'lucide-react';
 import Header from '@/components/Header';
@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 
 export default function AdminDashboard() {
     const [posts, setPosts] = useState([]);
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -17,15 +18,26 @@ export default function AdminDashboard() {
     }, []);
 
     const handleDelete = async (slug) => {
-        if (!confirm('Are you sure you want to delete this post?')) return;
+        const confirmDelete = window.confirm('Do you really want to delete this post?');
+        if (!confirmDelete) return;
 
-        const res = await fetch(`/api/posts/${slug}`, { method: 'DELETE' });
+        setMessage('Deleting post...');
+
+        const res = await fetch(`/api/posts/${slug}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_ADMIN_SECRET}`,
+            },
+        });
+
         const data = await res.json();
         if (data.success) {
             setPosts(posts.filter((post) => post.slug !== slug));
-            alert('Post deleted successfully');
+            setMessage('✅ Post deleted successfully!');
+            setTimeout(() => setMessage(''), 2000);
         } else {
-            alert('Failed to delete post');
+            setMessage(data.message || 'Failed to delete post.');
+            setTimeout(() => setMessage(''), 2000);
         }
     };
 
@@ -34,7 +46,13 @@ export default function AdminDashboard() {
             <Header />
 
             <main className="flex-grow max-w-4xl mx-auto py-10 px-6">
-                <h1 className="text-4xl font-bold text-center mb-8 text-[#333333]">My Dashboard</h1>
+                <h1 className="text-4xl font-bold text-center mb-8 text-[#333333]">My Dashboard 🛠️</h1>
+
+                {message && (
+                    <div className="mb-6 p-3 rounded border border-[#E0D7C6] bg-white text-center text-[#5F5F5F]">
+                        {message}
+                    </div>
+                )}
 
                 <div className="text-center mb-10">
                     <Link href="/admin/create" className="bg-[#7B3F00] text-white py-2 px-6 rounded border border-[#7B3F00] hover:bg-[#5c2e00] transition">

@@ -28,9 +28,13 @@ export default function CreatePost() {
         try {
             const res = await fetch('/api/posts/create', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_ADMIN_SECRET}`,
+                },
                 body: JSON.stringify({ title, content }),
             });
+
 
             const data = await res.json();
 
