@@ -2,21 +2,24 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
-// Dynamically import ReactQuill to avoid SSR issues
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 export default function CreatePost() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState('');
     const router = useRouter();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setMessage('');
 
         if (!title || !content) {
-            alert('Title and content are required');
+            setMessage('Please fill in both title and content.');
             return;
         }
 
@@ -32,48 +35,60 @@ export default function CreatePost() {
             const data = await res.json();
 
             if (data.success) {
-                alert('Post created successfully!');
-                router.push('/admin');
+                setMessage('✅ Post published successfully!');
+                setTimeout(() => router.push('/admin'), 1500);
             } else {
-                alert(data.message || 'Failed to create post');
+                setMessage(data.message || 'Failed to create post.');
             }
         } catch (error) {
-            console.error('Error creating post:', error);
-            alert('Something went wrong');
+            console.error('Error:', error);
+            setMessage('Something went wrong. Please try again.');
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="max-w-3xl mx-auto p-6">
-            <h1 className="text-2xl font-bold mb-4">Create New Blog Post ✍️</h1>
+        <div className="min-h-screen flex flex-col bg-[#FAF3E0] font-serif">
+            <Header />
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <input
-                    type="text"
-                    placeholder="Post Title"
-                    className="w-full border border-gray-300 p-3 rounded"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
+            <main className="flex-grow max-w-3xl mx-auto py-10 px-6">
+                <h1 className="text-3xl font-bold mb-6 text-[#333333] text-center">Create New Post ✍️</h1>
 
-                <ReactQuill
-                    theme="snow"
-                    value={content}
-                    onChange={setContent}
-                    className="bg-white"
-                    placeholder="Write your post content here..."
-                />
+                {message && (
+                    <div className="mb-4 p-3 rounded border border-[#E0D7C6] bg-white text-center text-[#5F5F5F]">
+                        {message}
+                    </div>
+                )}
 
-                <button
-                    type="submit"
-                    className="bg-blue-600 text-white py-2 px-4 rounded"
-                    disabled={loading}
-                >
-                    {loading ? 'Publishing...' : 'Publish Post'}
-                </button>
-            </form>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <input
+                        type="text"
+                        placeholder="Post Title"
+                        className="w-full border border-[#E0D7C6] p-3 rounded bg-white focus:outline-none focus:ring-2 focus:ring-[#7B3F00]"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
+
+                    <ReactQuill
+                        theme="snow"
+                        value={content}
+                        onChange={setContent}
+                        className="bg-white"
+                        placeholder="Write your post content here..."
+                    />
+
+                    <button
+                        type="submit"
+                        className="bg-[#7B3F00] text-white py-2 px-6 rounded hover:bg-[#5c2e00] transition"
+                        disabled={loading}
+                    >
+                        {loading ? 'Publishing...' : 'Publish Post'}
+                    </button>
+                </form>
+            </main>
+
+            <Footer />
         </div>
     );
 }

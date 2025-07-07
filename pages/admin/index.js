@@ -34,7 +34,7 @@ export default function AdminDashboard() {
             <Header />
 
             <main className="flex-grow max-w-4xl mx-auto py-10 px-6">
-                <h1 className="text-4xl font-bold text-center mb-8 text-[#333333]">Admin Dashboard 🛠️</h1>
+                <h1 className="text-4xl font-bold text-center mb-8 text-[#333333]">Admin Dashboard</h1>
 
                 <div className="text-center mb-10">
                     <Link href="/admin/create" className="bg-[#7B3F00] text-white py-2 px-6 rounded border border-[#7B3F00] hover:bg-[#5c2e00] transition">
