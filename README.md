@@ -1,40 +1,134 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 📖 Blog Haven
 
-## Getting Started
+A minimalist, vintage-inspired blogging platform built using **Next.js**, **MongoDB Atlas**, and **Tailwind CSS v4**. Designed for timeless storytelling, seamless user experience, and optimized for modern SEO best practices.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Project Overview
+
+Blog Haven allows users to:
+
+* Publish thoughtful blog posts with rich-text editing.
+* View and read posts through elegant, distraction-free public pages.
+* Securely create, edit, and delete posts through a personalized dashboard.
+
+The platform combines a classic look with modern tech under the hood.
+
+---
+
+## Key Features
+
+* 📝 **Post Creation & Management**: Rich-text editing, instant updates, easy deletion.
+* 🔐 **Security**: Only authorized users can perform admin actions.
+* 🔗 **SEO-Friendly URLs**: Each post has a unique, human-readable slug.
+* 📱 **Responsive Design**: Works beautifully across devices.
+
+---
+
+## ⚙️ Tech Stack
+
+| Technology                   | Purpose                         |
+| ---------------------------- | ------------------------------- |
+| **Next.js (v14+)**           | Frontend & Backend (API routes) |
+| **Tailwind CSS v4**          | Styling & Responsive Layout     |
+| **MongoDB Atlas + Mongoose** | Database & ODM                  |
+| **React-Quill-New**          | Rich Text Editor                |
+| **Vercel**                   | Deployment                      |
+
+---
+
+## Security & Authorization
+
+* Admin actions (**Create/Edit/Delete**) are protected using a **secret token** mechanism.
+* Environment variables ensure sensitive data (Mongo URI, Admin Secret) remains confidential.
+* Input sanitization (`sanitize-html`) is applied to all post content to prevent **XSS attacks**.
+
+---
+
+## Folder Structure (Simplified)
+
+```
+/pages
+  /api
+    posts/[slug].js       // GET, PUT, DELETE post
+    posts/create.js        // POST create new post
+  admin
+    index.js               // My Dashboard (admin)
+    create.js              // Create Post page
+    edit/[slug].js         // Edit Post page
+  blog
+    [slug].js              // Public blog post page
+  index.js                 // Landing page
+/components
+  Header.js
+  Footer.js
+/lib
+  dbConnect.js
+/models
+  Post.js
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Deployment (Vercel)
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+1. Pushed the complete codebase to **GitHub**.
+2. Imported the repository into **Vercel**.
+3. Set the following Environment Variables in Vercel:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+```
+MONGODB_URI=your_mongo_connection_string
+ADMIN_SECRET=your_admin_secret_key
+NEXT_PUBLIC_ADMIN_SECRET=your_admin_secret_key
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Deployed the app ➔ Vercel auto-detects Next.js.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Functional Requirements (Delivered)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+| Requirement                        | Status                           |
+| ---------------------------------- | -------------------------------- |
+| SEO-friendly unique URLs           | ✔ Implemented using `slugify`    |
+| Create, Edit, Delete posts         | ✔ With secure token-based access |
+| View posts publicly                | ✔ No login required              |
+| Input sanitization                 | ✔ Done via `sanitize-html`       |
+| Responsive UI & consistent styling | ✔ Achieved with Tailwind v4      |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## User Stories (Mapped)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| User Story                                            | Fulfilled     |
+| ----------------------------------------------------- | ------------- |
+| As an admin, I want to create, edit, and delete posts | ✔ Done        |
+| As a visitor, I want to read posts without logging in | ✔ Done        |
+| As a user, I want readable, elegant design            | ✔ Delivered   |
+| As a site owner, I want secure admin access           | ✔ Implemented |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+---
+
+## Non-Functional Goals Achieved
+
+* **Performance**: Optimized with Next.js static generation.
+* **Accessibility**: Clean contrast and toggleable dark mode.
+* **Scalability**: Modular code structure for future features.
+
+---
+
+## Future Enhancements
+
+* Image uploads for posts.
+* Pagination on the landing page.
+* Richer post metadata (categories, tags).
+
+---
+
+## Acknowledgements
+
+Built as part of an internship assignment to demonstrate full-stack development, security best practices, and attention to design consistency.
+
+---
+
+**Blog Haven** ➔ Crafted for timeless words. Delivered with modern code.
