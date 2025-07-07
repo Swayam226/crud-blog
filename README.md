@@ -122,13 +122,3 @@ NEXT_PUBLIC_ADMIN_SECRET=your_admin_secret_key
 * Image uploads for posts.
 * Pagination on the landing page.
 * Richer post metadata (categories, tags).
-
----
-
-## Acknowledgements
-
-Built as part of an internship assignment to demonstrate full-stack development, security best practices, and attention to design consistency.
-
----
-
-**Blog Haven** ➔ Crafted for timeless words. Delivered with modern code.
